@@ -1,0 +1,47 @@
+server:
+  port: 8098
+  max-http-header-size: 100MB
+
+spring:
+  application:
+    name: gobi-integration-service
+  datasource:
+      url: jdbc:sqlserver://192.168.81.10:1433;DatabaseName=payroll_integration;encrypt=true;trustServerCertificate=true;
+      username: sa
+      password: Gobi@2021
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  data:
+    rest:
+      base-path: /crud
+      default-page-size: 25
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+        show_sql: true
+      javax:
+        persistence:
+          validation:
+            mode: none
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  task:
+    scheduling:
+      pool:
+        size: 1
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
