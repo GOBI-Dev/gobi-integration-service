@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -23,10 +24,10 @@ public class PayrollController {
     @Autowired
     PayrollService payrollService;
 
-    @PostMapping("postPayroll")
-    public ResponseEntity<?> postPayroll() throws ParseException {
+    @PostMapping("postPayrollBasic")
+    public ResponseEntity<?> postPayrollBasic() throws ParseException {
 
-        boolean result = payrollService.postPayroll();
+        boolean result = payrollService.postPayrollBasic();
         if(result){
             return ResponseEntity.ok().body("Success");
         }else{
@@ -34,14 +35,18 @@ public class PayrollController {
         }
     }
 
-    @PostMapping("postPayrollForTest")
-    public ResponseEntity<?> postPayrollForTest(@RequestBody List<PayrollInputDTO> payrollList) throws ParseException {
-
-        boolean result = payrollService.postPayrollForTest(payrollList);
-        if(result){
-            return ResponseEntity.ok().body("Success");
+    @PostMapping("postPayroll")
+    public ResponseEntity<?> postPayroll(@RequestBody List<PayrollInputDTO> payrollList, @RequestHeader HttpHeaders headers) throws ParseException {
+        String key = Objects.requireNonNull(headers.get("GOBI-API-KEY")).get(0);
+        if(key.equals("69399a188366b8fc8e59b5f0cb127e23a20b65b9")){
+            boolean result = payrollService.postPayroll(payrollList);
+            if(result){
+                return ResponseEntity.ok().body("Success");
+            }else{
+                return ResponseEntity.badRequest().body("Failed");
+            }
         }else{
-            return ResponseEntity.badRequest().body("Failed");
+            return ResponseEntity.badRequest().body("Request is not authenticated!");
         }
     }
 

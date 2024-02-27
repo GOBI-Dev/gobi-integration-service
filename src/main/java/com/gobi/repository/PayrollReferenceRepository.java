@@ -1,10 +1,11 @@
 package com.gobi.repository;
 
-import com.gobi.model.Payroll;
+import com.gobi.model.PayrollReference;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PayrollRepository extends JpaRepository<Payroll, Long>, JpaSpecificationExecutor<Payroll> {
+public interface PayrollReferenceRepository extends JpaRepository<PayrollReference, Long>, JpaSpecificationExecutor<PayrollReference> {
+
 }

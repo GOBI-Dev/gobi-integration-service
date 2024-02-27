@@ -3,16 +3,14 @@ package com.gobi.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Table(name = "Payroll_Post")
+@Table(name = "Payroll_Post_FROM_INTERACTIVE_IBI")
 public class Payroll extends BaseModel {
 
     @Id

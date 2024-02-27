@@ -50,8 +50,7 @@ public class PayrollService {
         }
     }
 
-    //Tatsan dansnii medeelluudiig хадгалах
-    public boolean postPayroll() throws ParseException {
+    public boolean postPayrollBasic() throws ParseException {
         List<PayrollInputDTO> payrollDTOList = getPayrolls();
         List<Payroll> result = new ArrayList<>();
         if(payrollDTOList!=null) {
@@ -59,7 +58,8 @@ public class PayrollService {
                 for (PayrollInputDTO payrollInputDTO : payrollDTOList) {
                     Payroll payroll = new Payroll();
                     if(payrollInputDTO.getDepartmentId()!=null&&!payrollInputDTO.getDepartmentId().equals("")){
-                        payroll.setDepartmentId(payrollInputDTO.getDepartmentId());}
+                        payroll.setDepartmentId(payrollInputDTO.getDepartmentId());
+                    }
 
                     if(payrollInputDTO.getDepartmentName()!=null&&!payrollInputDTO.getDepartmentName().equals("")){
                         payroll.setDepartmentName(payrollInputDTO.getDepartmentName());
@@ -114,11 +114,11 @@ public class PayrollService {
         }
     }
 
-    public boolean postPayrollForTest(List<PayrollInputDTO> payrollInputDTOList) throws ParseException {
+    public boolean postPayroll(List<PayrollInputDTO> payrollInputDTOList) throws ParseException {
         if(payrollInputDTOList !=null) {
+            List<Payroll> result = new ArrayList<>();
             if (payrollInputDTOList.size() > 0) {
                 for (PayrollInputDTO payrollInputDTO : payrollInputDTOList) {
-                    System.out.println("payroll one by one: "+ payrollInputDTO);
 
                     Payroll payroll = new Payroll();
                     if(payrollInputDTO.getDepartmentId()!=null&&!payrollInputDTO.getDepartmentId().equals("")){
@@ -169,6 +169,8 @@ public class PayrollService {
                     payroll.setStatus(true);
                     payroll.setIsLog(false);
                     payrollRepository.save(payroll);
+
+                    result.add(payroll);
                 }
             }
             return true;

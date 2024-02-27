@@ -6,11 +6,10 @@ spring:
   application:
     name: gobi-integration-service
   datasource:
-      url: jdbc:sqlserver://192.168.81.10:1433;DatabaseName=payroll_integration;encrypt=true;trustServerCertificate=true;
-      username: sa
-      password: Gobi@2021
-      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-
+    url: jdbc:sqlserver://192.168.81.10:1433;DatabaseName=payroll_integration;encrypt=true;trustServerCertificate=true;
+    username: sa
+    password: Gobi@2021
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
   data:
     rest:
@@ -30,11 +29,6 @@ spring:
             mode: none
     open-in-view: false
 
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-
   task:
     scheduling:
       pool:
@@ -50,4 +44,13 @@ eureka:
     hostname: localhost
 
 filePath: C:\Users\Administrator\Downloads\plm
+filePathForPayroll: C:\Users\Administrator\Downloads\payrollExcelFiles\
+filePathForUploadedPayroll: C:\Users\Administrator\Downloads\payrollExcelFiles\uploads\
+
+aws:
+  s3:
+    bucket: gobi-aws-bucket
+  accessKey: AKIAWKUC635M4HCWNAZZ
+  secretKey: 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
+
 
